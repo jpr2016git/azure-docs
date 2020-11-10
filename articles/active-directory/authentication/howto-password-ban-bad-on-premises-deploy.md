@@ -292,6 +292,15 @@ To install the Azure AD Password Protection proxy service, complete the followin
     Registration of the Active Directory forest is necessary only once in the lifetime of the forest. After that, the Azure AD Password Protection DC agents in the forest automatically perform any other necessary maintenance. After `Register-AzureADPasswordProtectionForest` runs successfully for a forest, additional invocations of the cmdlet succeed, but are unnecessary.
     
     For `Register-AzureADPasswordProtectionForest` to succeed, at least one DC running Windows Server 2012 or later must be available in the Azure AD Password Protection proxy server's domain. The Azure AD Password Protection DC agent software doesn't have to be installed on any domain controllers prior to this step.
+    
+         > [!NOTE]
+         > During the proxy registration, the following events are logged in Event Viewer under Application and Services Logs > Microsoft > AzureADPasswordProtection > Operational:
+         > Event ID 30000: "A proxy registration message was sent to Azure and a successful response was received."
+         > Event ID 30001: "A new proxy certificate credential was successfully persisted.". The event contains the proxy certificate thumbprint and its timestamp.
+         > 
+         > During the forest registration, the following events are logged in the same location:
+         > Event ID 30003: "A forest registration message was sent to Azure and a successful response was received.". The event contains the elapsed time and the endpoint.
+         > Event ID 30004: "A new forest certificate credential was successfully persisted in Active Directory.". The event contains the certificate thumbprint, its timestamp, and Distinguished Name (i.e. CN=988BFBD2-99EB-4427-9B37-F1ADCD9753A0,CN=Forest Certs,CN=Azure AD Password Protection,CN=Services,CN=Configuration,DC=contoso,DC=com)
 
 ### Configure the proxy service to communicate through an HTTP proxy
 
